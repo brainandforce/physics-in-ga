@@ -1,0 +1,42 @@
+\chapter{More on geometric algebra}
+
+Although vector geometric algebra provides a simple, convenient model for embedding our
+understanding of vectors into the framework of geometric algebra, it is by no means the only model.
+Models such as \textit{projective geometric algebra} (PGA) and \textit{conformal geometric algebra}
+(CGA) use extra dimensions to assist in the modeling of various kinds of objects in space.
+
+\section{Familiar number systems are geometric algebras}
+
+We've previously seen how the 2D vector geometric algebra contains the complex numbers in its even
+subalgebra. The complex numbers themselves are a geometric algebra, $Cl_{0,1}(\mathbb{R})$. Here,
+we've extended the Clifford algebra symbol to include the number of dimensions that square to a
+negative number - that dimension is the imaginary numbers, with the real numbers being part of the
+scalar field that always squares to 1.
+
+Similarly, the quaternions also comprise a geometric algebra, $Cl_{0,2}(\mathbb{R})$. It's easy to 
+show that the two vectors and the bivector of the space map onto the quaternionic elements $i$, $j$,
+and $k$ (the order of correspondence is irrelevant).
+
+Unfortunately, we can't go higher. The octonions aren't associative, violating a fundamental
+requirement that Clifford algebras hold - they are unital associative algebras. The Cayley-Dickson
+contstruction allows for the construction of algebras over the field of real numbers with
+increasingly loose constraints as the number of dimensions increases.
+
+\section{Projective geometric algebra}
+
+A \textit{projective geometric algebra} (PGA) is a geometric algebra that contains one or more extra
+projective dimensions. These dimensions are \textit{projective}, meaning that they are essentially
+flattened into the remaining dimensions. When we calculate a length, components of a multivectors
+that contain the projective dimensions square to zero.
+
+We will extend our descriptions of the underlying Clifford algebra by adding a third dimension index
+representing the components that square to zero. The n-dimensional projective geometric algebra is
+modeled by the Clifford algebra $Cl_{n,0,1}(\mathbb{R})$.
+
+Projective geometric algebra provides a framework for treating translations and rotations
+equivalently. This makes it an extremely useful model for working with space groups - the symmetries
+that are possible in crystals. It also serves as a foundation for 3D computer graphics - the
+projective properties naturally describe the process of flattening a 3D object into a 2D
+representation.
+
+\section{Conformal geometric algebra}
