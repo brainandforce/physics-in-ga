@@ -1,6 +1,8 @@
 \chapter{Special relativity}
 
-\section{The speed of light}
+\section{Background}
+
+\subsection{The speed of light}
 
 The first evidence that light travels at a finite speed was found in 1676 by the Danish astronomer
 Ole Rømer. He noticed discrepancies in the timing of the eclipses of the Jovian moon Io by Jupiter
@@ -34,3 +36,90 @@ Moreover, the measurement of space is relative, too! If we try to measure the le
 using its speed and the times at which the front and rear of the train pass by a certain marker at
 the station, an observer on the platform will measure different times than a pair of observers
 stationed at the front and rear of the train for the reasons mentioned above.
+
+\subsection{The Minkowski metric}
+
+The \textit{Minkowski metric}, $\eta_{\mu\nu}$ is the metric tensor of space as described in special
+relativity. In an orthonormal basis:
+$$
+\eta_{\mu\nu} = \begin{bmatrix}
+    -\frac{1}{c^2} & 0 & 0 & 0 \\
+    0 & 1 & 0 & 0 \\
+    0 & 0 & 1 & 0 \\
+    0 & 0 & 0 & 1 \\
+\end{bmatrix}
+$$
+The first row and column correspond to the time dimension, and the rest of rows and columns
+correspond to the three spatial dimensions.
+
+However, this is not the only way we can define the Minkowski metric. We used the \textit{East Coast
+metric}, or the mostly positive metric. However, the metric of spactime is essentially unchanged if
+we use a metric that has the spacelike dimensions square to negative values:
+$$
+\eta_{\mu\nu} = \begin{bmatrix}
+    \frac{1}{c^2} & 0 & 0 & 0 \\
+    0 & -1 & 0 & 0 \\
+    0 & 0 & -1 & 0 \\
+    0 & 0 & 0 & -1 \\
+\end{bmatrix}
+$$
+These correspond to two different algebras, $\ClR{1,3}$ and $\ClR{3,1}$ respectively. Although these
+algebras are similar in structure, it is critical to note that \textit{they are not isomorphic!}
+
+Throughout this work, we will stick to the East Coast convention, and work in the Clifford algebra
+$\ClR{3,1}$, which we consider the canonical spacetime algebra. Working with this convention allows
+us to avoid introducing imaginary units in future equations.
+
+\section{The spacetime algebra}
+
+Previously, we used $\ClR{3}$, the algebra of physical space, to provide a set of basis elements - 
+vectors, bivectors, and trivectors - that can describe physical phenomena. For Minkowski space, we
+can extend the algebra to $\ClR{3,1}$ - the \textit{spacetime algebra} (STA).
+
+\subsection{The even subalgebra and spacetime splits}
+
+Like with other Clifford algebras, we will find it useful in many cases to restrict ourselves to the
+even subalgebra of STA, which is just $\ClR{3}$, the algebra of physical space. Interestingly, both
+$\ClR{3,1}$ and $\ClR{1,3}$ both contain $\ClR{3}$ as an even subalgebra, which may explain why both
+conventions are commonly used (the West Coast metric for particle physicists, the East Coast metric
+for relativists), even though the two are not isomorphic.
+
+It is useful to investigate the elements of the even subalgebra of STA and understand how they are
+linked to those of $\ClR{3}$. The even subalgebra contains the scalar $1$, the bivectors $e_0 e_1$,
+$e_0 e_2$, $e_0 e_3$, $e_1 e_2$, $e_1 e_3$, $e_2 e_3$, and the pseudoscalar $i = e_0 e_1 e_2 e_3$.
+Mapping the scalar and pseudoscalar is trivial, but we want to describe the subalgebra so that some
+spacetime bivectors correspond to spatial vectors, and the rest correspond to bivectors. Thankfully,
+the unique behavior of $e_0$ gives us a natural way to map the STA bivectors onto APS vectors and
+bivectors. Our mapping just needs to drop the $e_0$ element:
+$$
+\begin{matrix}
+    e_0 e_1 \ClR{3,1} \mapsto e_1 \ClR{3} & e_1 e_2 \ClR{3,1} \mapsto e_1 e_2 \ClR{3} \\
+    e_0 e_2 \ClR{3,1} \mapsto e_2 \ClR{3} & e_1 e_3 \ClR{3,1} \mapsto e_1 e_3 \ClR{3} \\
+    e_0 e_3 \ClR{3,1} \mapsto e_3 \ClR{3} & e_2 e_3 \ClR{3,1} \mapsto e_2 e_3 \ClR{3} \\
+\end{matrix}
+$$
+
+A geometric interpretation of the even subalgebra is that it describes a moment in time in a special
+relativistic framework. Since we can't see the timelike components of STA bivectors in that moment,
+those bivectors become vectors. The other bivectors, which have only spacelike components, describe
+oriented areas in space, and thus rotations. Sometimes, we use the notation $\sigma_n = e_0 e_n$ to
+denote the basis of the even subalgebra - this highlights their equivalence to the Pauli matrices, a
+matrix representation of APS, commonly abbreviated to $\sigma$.
+
+We can project any STA element into the even subalgebra by multiplying it by $e_0$. This causes the
+timelike component to collapse into a scalar, and the spacelike component to become a bivector. For
+example, an event vector $x$ can be projected into the even subalgebra:
+$$
+e_0 x = x^0 + x^\mu e_0 e_\mu
+$$
+Whether we multiply on the left or right does not matter, provided we keep track of the sign. By
+convention, we will multiply on the left so that all signs are positive when the basis bivectors use
+lexicographic ordering:
+$$
+x e_0 = x^0 + x^\mu e_\mu e_0 =  x^0 - e_0 x^\mu e_1
+$$
+This process is known as a \textit{spacetime split}, and it can be used to rephrase a relativistic
+framework into a non-relativistic one. While many theories are greatly simplified in a relativistic
+setting, for practical calculations, such an operation is useful, especially for time-independent
+phenomena - one practical example is the calculation of the energy of a chemical system at
+equilibrium.
