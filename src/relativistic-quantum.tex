@@ -1,0 +1,148 @@
+\chapter{Relativistic quantum mechanics}
+
+In the previous on special relativity, we saw how placing space and time on equal footing provides a
+simpler framework for working with seemingly complicated phenomena, such as electromagnetism. We
+were able to identify the electric and magnetic field vectors with the spacelike and timelike
+bivectors of the spacetime algebra, and unified our descriptions of the fields into the single
+equation $\nabla F = J$.
+
+Now we can extend this to our understanding of quantum mechanics. Looking back at the Schrödinger
+equation, it becomes obvious that there is a problem with the formulation that makes it unfitting
+for extension: the time derivative is first-order, but the spatial derivatives are second-order.
+Time and space are clearly not being treated equally.
+
+\section{The Klein-Gordon equation}
+
+When Erwin Schrödinger derived his namesake equation, he began with a relativistic equation, but
+eschewed the relativistic setting. This equation is the \textit{Klein-Gordon equation}. We'll follow
+this derivation
+
+The energy in special relativity is the sum of two components: the mass-energy and the kinetic
+energy. The expression for this energy is
+
+$$E^2 = (pc)^2 + (mc^2)^2$$
+
+We can substitute our defnitions for the energy operator and momentum operator that we used earlier
+on when exploring non-relativistic quantum mechanics.
+
+\begin{align}
+    \hat{E} = i\hbar\frac{\partial}{\partial t}   &   \hat{p} = -i\hbar\nabla
+\end{align}
+
+As with the Schrödinger equation, we'll have these operators act on a wavefunction $\psi$:
+$$
+\left(i\hbar\frac{\partial}{\partial t}\right)^2 \psi =
+\left(-i\hbar c \nabla\right)^2 \psi +
+\left(mc^2\right)^2 \psi
+$$
+However, we can simplify this equation a bit. We'll move the second derivative terms to one side:
+$$
+\left(i\hbar\frac{\partial}{\partial t}\right)^2 \psi -
+\left(-i\hbar c \nabla\right)^2 \psi =
+\left(mc^2\right)^2 \psi
+$$
+Now we can resolve the squared differential operators. We'll use the equality $(i\hbar)^2 =
+(-i\hbar)^2 = -\hbar^2$, and combine the double derivatives into a single linear operation acting on
+$\psi$.
+$$
+-\hbar^2 \left(\frac{\partial^2}{\partial t^2} - c^2 \nabla^2\right) \psi = \left(mc^2\right)^2 \psi
+$$
+Now we'll divide both sides of this equation by $-c^2 \hbar^2$:
+$$
+\left(\frac{1}{c^2}\frac{\partial^2}{\partial t^2} - \nabla^2\right) \psi =
+-\left(\frac{mc}{\hbar}\right)^2 \psi
+$$
+Because we're working with the east coast metric, we'll multiply everything by $-1$ to make sure
+that the spatial derivative components are positive and the temporal component is negative:
+$$
+\left(\nabla^2 - \frac{1}{c^2}\frac{\partial^2}{\partial t^2}\right) \psi =
+\left(\frac{mc}{\hbar}\right)^2 \psi
+$$
+Finally, we can define the differential operator $\partial^2 = \nabla^2 -
+\frac{1}{c^2}\frac{\partial^2}{\partial t^2}$ and substitute that in:
+$$
+\partial^2 \psi = \left(\frac{mc}{\hbar}\right)^2 \psi
+$$
+
+\subsection{Problems with the Klein-Gordon equation}
+
+The problem with the Klein-Gordon equation is that it is a second order equation in spacetime.
+Although it is possible to use the equation
+
+\section{The Dirac equation}
+
+The problems with the Klein-Gordon equation prevented it from being used directly in experimental
+and computational study. Physicists at the time sought a first-order equation. Although it seemed
+relatively straightforward to take the square root of the energy...
+$$E^2 = \sqrt{(pc)^2 + (mc^2)^2}$$
+...the problem of retrieving a first-order operator such by taking the square root of $\partial^2$
+seemed somewhat hopeless. Although it is in principle possible to calculate the square root by
+performing a Taylor expansion of the square root function and evaluating it for $\partial^2$, it
+results in a messy expression that may not be practical to use.
+
+Paul Dirac was one of the physicists pondering this problem, and he had a different idea: instead of
+performing any sort of infinite expansion of $\partial^2$, he'd work around this problem by
+factoring it into a more tractable form:
+$$
+\partial^2 = \left(\gamma^0 \frac{\partial}{\partial t} +
+\gamma^1 \frac{\partial}{\partial x} +
+\gamma^2 \frac{\partial}{\partial y} +
+\gamma^3 \frac{\partial}{\partial z}
+\right)^2
+$$
+where $\gamma^\mu$ are some coefficients to be determined. The issue now becomes making cross terms,
+such as $\gamma_0 \frac{\partial}{\partial t} \gamma_3 \frac{\partial}{\partial z}$ disappear, as
+they aren't present in the definition of $\partial^2$. This implies two sets of conditions: first,
+$\gamma^\mu \gamma^\nu = -\gamma^\nu \gamma^\mu$ if $\mu \neq \nu$. Second, $(\gamma^\mu)^2 = -1$
+when $\mu = 0$, and $(\gamma^\mu)^2 = 1$ when $\mu > 0$.
+
+Dirac realized that no ordinary numbers have this property, but it would be possible to construct a
+set of matrices that met this requirement. Those matrices are known as the \textit{gamma matrices},
+and they are a set of four $4\times4$ real matrices. These were described as operating on a
+4-dimensional complex vector $\psi$, whose components described left-handed and right-handed
+electrons and then-undiscovered positrons, which had the opposite charge of electrons. Although this
+was poorly understood initially, the discovery of the positron validated Dirac's theory.
+
+Unknown to Dirac at the time, the conditions that define the gamma matrices are \textit{exactly
+those that define the basis vectors of the spacetime algebra}! This opens the interpretation of the
+wavefunction up: rather than trying to make sense of the individual components of the wavefunction's
+complex vector representation, we treat the wavefunction as a spinor field, where at every point in
+space there is a multivector value consisting of sums of even basis blades.
+
+By representing the partial derivatives in an indexed notation ($t = x^0, x = x^1, y = x^2,
+z = x^3$), we can write the Dirac equation in a commonly seen form:
+$$
+\gamma^\mu \frac{\partial}{\partial x^\mu} \psi = \frac{mc}{\hbar} \psi
+$$
+More commonly, the components are subtracted so one side of the equation is zero:
+$$
+\left(\gamma^\mu \frac{\partial}{\partial x^\mu} - \frac{mc}{\hbar}\right) \psi = 0
+$$
+And in natural units ($\hbar = c = 1$):
+$$\
+\left(\gamma^\mu \frac{\partial}{\partial x^\mu} - m\right) \psi = 0
+$$
+
+\subsection*{What about the imaginary unit?}
+
+In many resources, the Dirac equation (in natural units) has an extra imaginary factor attached to
+it:
+$$\
+\left(i\gamma^\mu \frac{\partial}{\partial x^\mu} - m\right) \psi = 0
+$$
+However, our derivation managed to completely bypass the imaginary unit. How did this happen?
+
+In many derivations of the Dirac equation, the $\partial^2$ operator is factored with an included
+imaginary unit to account for the negative sign of one set of dimensions:
+$$
+\partial^2 = \left(i\gamma^0 \frac{\partial}{\partial t} +
+\gamma^1 \frac{\partial}{\partial x} +
+\gamma^2 \frac{\partial}{\partial y} +
+\gamma^3 \frac{\partial}{\partial z}
+\right)^2
+$$
+This allows for more consistent conditions the $\gamma^\mu$ factors must meet: in particular, the
+second criterion simplifies to $\left(\gamma^\mu\right)^2 = 1$. In order to complete the derivation,
+the $\gamma^1$, $\gamma^2$, and $\gamma^3$ matrices are replaced $i\gamma^1$, $i\gamma^2$, and
+$i\gamma^3$. However, this introduction of an imaginary unit is completely unnecessary if the first
+derivation is followed, and the dynamics of the spinor field are the same.
