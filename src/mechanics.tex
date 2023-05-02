@@ -1,0 +1,132 @@
+\chapter{Classical mechanics}
+
+The standard introduction to classical mechanics
+
+\section{Action}
+
+\subsection{The best possible path}
+
+\textit{Candide, ou l'Optimisme} by Voltaire is a scathing satire of Leibniz's philosophy of 
+optimism: in summary, it states that we live in the best of all possible worlds. This idea is,
+frankly, nonsensical, given the horrible state of much of the world we live in. Therefore, we will
+use this idea to develop a new, highly generalizable understanding of mechanics.
+
+Consider the trajectory of a thrown object. If you already have somewhat of a background in
+mathematics or physics, you might know that, barring effects such as air resistance, the object
+moves along a parabolic trajectory. Using the nonsensical idea mentioned previously, we will assert
+that this trajectory - or the trajectory of any classical object - is the best of all possible
+trajectories it may take.
+
+Although "best" is a subjective term, what we can do is build a mathematical machine that takes the
+trajectory of an object and returns some value of "goodness". To follow convention, from here on,
+we'll refer to this "goodness" as the \textit{action}, which is given the symbol $S$. The
+\textit{action functional}, $S\left[q\right]$takes a trajectory $q\left(t...\right)$, which depends
+on time and possibly other parameters, and returns the action, which is a real number. Now we can
+use calculus to make a statement about the value of the action for the "best" trajectory. Because
+any change to the trajectory would result in a new trajectory that is not the "best", we know that
+the change in action over an infinitesimal change in the trajectory must be zero:
+
+$$\frac{\delta S}{\delta q} = 0$$
+
+The new $\delta$ symbol describes a \textit{functional derivative}, which describes the change in a
+functional with respect to a corresponding change in the input function. This principle is known as
+the \textit{stationary action principle}.
+
+For those of you who remember how optimization works in calculus, you may recall the second
+derivative test: just because a function has a point where its derivative is zero does not mean
+that the point is a maximum. It could be a minimum, or perhaps a more complicated terrace point.
+The value of the second derivative determines what the point actually is. However, in the case of
+action, we don't actually need to perform this test: regardless of the nature of the stationary
+point, we can still get the right dynamics from ensuring $\frac{\delta S}{\delta q} = 0$. (This
+does mean that we could actually be looking at the \textit{worst} of all possible trajectories, if
+we still think of the action as a measure of the goodness of a trajectory!)
+
+Sometimes, the term \textit{least action principle} is used instead, but for the reason outlined
+above, it's a little misleading. We'll stick to calling it the stationary action principle.
+
+\subsection{Hamilton's principal function}
+
+Although we've formally defined the action as a functional of the trajectory $q\left(t...\right)$,
+we can think of the action a little differently. For a physical situation, some action function
+$S\left(t_0..., t...\right)$ can tell us everything about the system's dynamics, provided we know
+the state of the object at two points in time. This function is referred to as \textit{Hamilton's
+principal function}. 
+
+The challenge now is determining how to adequate describe a state. We can get an idea of this from
+our own intuition. If we want to change the trajectory of a falling object, we can make two types
+of changes: either we could drop it from a different position, or we could give it a different
+starting velocity. Combined with the time, we can use position and velocity to completely describe
+a state which may be used as an argument for Hamilton's principal function.
+
+Although it might seem that we need to know two points that are along the trajectory the object
+takes, this is actually not the case. In order to find the dynamics of the system, we can compare
+a known state $(x,v,t)$ and compare it to an arbitrary state $(x_0,v_0,t_0)$, giving a value for
+the action. To generate the rest of the trajectory, we apply the stationary action principle:
+
+$$\frac{d}{dt}S\left(x_0, v_0, t_0, x, v, t\right) = 0$$
+
+We can think of the total derivative $\frac{dS}{dt}$ as the sum of several partial derivatives:
+
+$$
+\frac{dS}{dt} = 
+\frac{\partial S}{\partial x_0} \frac{dx_0}{dt} + 
+\frac{\partial S}{\partial v_0} \frac{dv_0}{dt} + 
+\frac{\partial S}{\partial t_0} \frac{dt_0}{dt} + 
+\frac{\partial S}{\partial x} \frac{dx}{dt} + 
+\frac{\partial S}{\partial v} \frac{dv}{dt} + 
+\frac{\partial S}{\partial t} \frac{dt}{dt} = 0
+$$
+
+Since the arbitrary initial state doesn't depend on the time, we can simplify this equation
+significantly:
+
+$$
+\frac{dS}{dt} = 
+\frac{\partial S}{\partial x} \frac{dx}{dt} + 
+\frac{\partial S}{\partial v} \frac{dv}{dt} + 
+\frac{\partial S}{\partial t} = 0
+$$
+
+We can perform one final rearrangement to get a simpler for of the equation we'll work with:
+
+$$
+\frac{\partial S}{\partial x} \frac{dx}{dt} + 
+\frac{\partial S}{\partial v} \frac{dv}{dt} =
+-\frac{\partial S}{\partial t}
+$$
+
+\subsection{Symmetries, conservation laws, and Noether's theorem}
+
+In order to move further, we'll have to exploit the symmetries of the systems we're looking at. A
+\textit{symmetry} is an operation that leaves a system unchanged when applied to the system. For a
+familiar example, consider what happens when a square is rotated 90 degrees - unless the square is
+marked in some way, it won't appear to have rotated at all. 90 degree rotations are thus symmetries
+of the square.
+
+Let's think about what symmetries occur in physical systems. Here, we'll use the example of two
+masses connected by a massless spring.In this system, there is an equilibrium distance $r_0$ where
+the spring exerts no force on the masses, but a force is applied that is proportional to the
+distance $r - r_0$ the object lies from that equilibrium point. If we change the distance between
+the masses by some value  $\Delta r$, this affects the dynamics of the system. But if we apply that
+change to all length parameters in the entire system, then the dynamics of the system won't change.
+Similarly, stationary action holds for those trajectories if we globally change time by another
+quantity $\Delta t$. In general, we can think of these changes as moving the experimental apparatus
+to somewhere new in space (giving the spatial translation symmetry) or performing the experiment at
+a different time (giving the time translation symmetry). 
+
+In both cases, before and after transformation, the stationary action principle holds:
+
+$$\frac{\delta S}{\delta q} = \frac{\delta S}{\delta q'} = 0$$
+
+It's critical to note that these symmetries may change $S$ by some constant $\Delta S$, but that
+change is irrelevant when taking the time derivative.
+
+This is a bit of a strange path to take, but it'll come in handy shortly. What we're going to do
+is look at what happens to the action when we not only shift a symmetric coordinate, but vary that
+shift over time. In mathematical terms, we're going to perform the transformation 
+$q \rightarrow q + \varepsilon\left(t\right)\Delta q$, then determine how this affects the action.
+
+
+\section{Lagrangian mechanics}
+
+

@@ -1,0 +1,343 @@
+\chapter{Introducing geometric algebra}
+
+The term \textit{geometric algebra} is often taken to refer to Clifford algebras defined over the
+real numbers. However, I find that this does not fully capture the distinction in their use. When I 
+see an article discuss Clifford algebras, it often involves the study of the algebras as purely
+mathematical objects of interest. By contrast, geometric algebra is often used  in contexts where
+it is not thealgebra itself that is the field of study, but the application of the algebra to real
+world problems that benefit from geometric interpretation. This allows for an expansion to not just 
+Clifford algebras, but related structures such as Weyl algebras.
+\footnote{A Weyl algebra consists of a nearly identical structure to a Clifford algebra, but it 
+uses a \textit{symplectic} form as its product rather than a \textit{quadratic} form.}
+
+Different flavors of geometric algebra exist, including \textit{projective geometric algebra}, 
+which has found use in computer graphics, and \textit{conformal geometric algebra}, which can be
+used to describe circles and spheres. However, for this introduction, we'll be using
+\textit{vector geometric algebra} (also known as \textit{vanilla geometric algebra}). This provides
+a straightforward extension of vector algebra concepts that you may already be familiar with.
+
+\section{Standard vector operations}
+
+\subsection{The dot product}
+In previous math classes, you likely learned about vector products such as the dot product and 
+cross product.
+
+The dot product of two vectors, $\vec{a}\cdot\vec{b}$, takes two vectors of the same dimension and
+returns a scalar value. This product gives us the degree of overlap between any two vectors, scaled
+by their lengths.
+
+Geometrically, we can think of the dot product as a measure of the overlap between two vectors
+scaled by the lengths of the constituent vectors.
+
+$$A = \lvert\vec{a}\rvert \lvert\vec{b}\rvert \cos \theta$$
+
+\subsection{The cross and wedge products}
+
+The cross product of two vectors, $vec{a}\times\vec{b}$, takes two three-dimensional vectors and
+returns a third vector perpendicular to the pair. This product arises in descriptions of various
+phenomena that involve rotation, such as torque:
+
+$$\vec{N} = \vec{r} \times \vec{f}$$
+
+or the force on a charged particle created by a magnetic field:
+
+$$\vec{F}_{B} = q\left( \vec{v} \times \vec{B} \right)$$
+
+Unfortunately, generalizing the cross product to spaces of arbitrary dimension is difficult. To see
+why, think about what would happen if we tried taking a cross product in two dimensions. It should
+be easy to see that you can't have three perpendicular vectors in two dimensions!
+
+However, there is a way around this problem. You might remember that the length of the vector
+returned by the cross product is proportional to the area $A$ spanned by the two vectors. That
+quantity does have an analog in any number of dimensions. In two dimensions, we can think about
+this in two ways. The first is to think of the two vectors as the columns of a matrix and take its
+determinant:
+
+$$A = \begin{vmatrix}
+a_{1} & b_{1} \\
+a_{2} & b_{2}
+\end{vmatrix}$$
+
+This is similar to how we can use determinants to calculate the cross product in three dimensions:
+
+$$\vec{a}\times\vec{b} = \begin{vmatrix}
+    \hat{x} & \hat{y} & \hat{z} \\
+    a_{1} & a_{2} & a_{3} \\
+    b_{1} & b_{2} & b_{3}
+\end{vmatrix}$$
+
+The second is to multiply the magnitude of each vector by the sine of the angle $\theta$ between 
+them, in a manner analogous to how we defined the cross product:
+
+$$A = \lvert\vec{a}\rvert \lvert\vec{b}\rvert \sin \theta$$
+
+The sine function is zero when the angle is zero, corresponding to the fact that collinear vectors
+don't span any area. But interestingly, if the angle is negative, then the sine term will also be
+negative, meaning that the area will be negative.
+
+Usually, we think of areas as having no sign, but it turns out that we can use this to our
+advantage. We can define the angle $\theta$ as the angle of the second vector minus that of the
+first. This means that if we swap the order of the arguments, the sign of the product changes.
+This property is known as \textit{anticommutativity}, and it allows us to to model not just areas,
+but rotations in those areas. What we have now is a \textit{signed area}.
+
+Using this knowledge, we can define a new product, the \textit{wedge product}, between two vectors,
+written like this: $\vec{a} \wedge \vec{b}$. This generalizes the cross product into any number of
+dimensions greater than two (since there's no concept of area in one dimension). 
+
+However, we need to deal with one last problem. In two dimensions, areas behaved like scalars. In
+three dimensions, areas behaved like vectors - they could be be oriented in any direction. What 
+about higher dimensions? It turns out that areas in four dimensions don't behave like scalars or 
+vectors. The reason for this is that in a space of $D$ dimensions, every area has $D - 2$ 
+dimensions perpendicular to it. That's why we couldn't define a perpendicular direction to an area
+in 2D: there are 0 perpendicular dimensions! In 3D, this works out neatly and we have one 
+perpendicular direction to an area. But in 4D, we have two of them! In other words, every area in
+4D has a perpendicular area associated with it. That's why the cross product produces what appears
+to be an ordinary vector, but there are no equivalents to it in any space of higher dimension, with
+the sole exception of seven dimensional space. The duality between area and its perpendicular
+directions is a mathematical pun that only works in three dimensions.
+
+In order to get around this problem, we're going to define a new mathematical object called a
+\textit{bivector}, which is the signed area that results from a wedge product of two vectors. This
+avoids the mathematical pun and allows us to deal with signed areas as the 2D objects they 
+fundamentally are.
+
+We can define a basis of unit bivectors by taking wedge products of unit vectors. In two
+dimensions, this is very easy because there is only one basis bivector: the one generated by 
+$\hat{x} \wedge \hat{y}$. Recall that wedging a vector with itself returns zero since no area is
+spanned, so:
+
+$$\hat{x} \wedge \hat{x} = \hat{y} \wedge \hat{y} = 0$$
+
+Also recall that reversing the order of the vectors is equivalent to negation:
+
+$$\hat{x} \wedge \hat{y} = -\hat{y} \wedge \hat{x}$$
+
+In three dimensions, there are three basis bivectors: $\hat{x} \wedge \hat{y}$, $\hat{x} \wedge 
+\hat{z}$, and $\hat{y} \wedge \hat{z}$. 
+
+We don't have to stop at bivectors, either. We can wedge three vectors together (or equivalently,
+a vector and a bivector) to get a \textit{trivector}. Like the bivector, the trivector corresponds
+to a signed volume. In three dimensions, there is only one basis trivector, $\hat{x} \wedge 
+\hat{y} \wedge \hat{z}$. Reversing the order of any wedged pair negates the trivector, just like
+how reversing the order of a wedge product of two vectors negates the bivector. But in two
+dimensions, there is no concept of a trivector. The reason for this is that if we constructed
+a trivector of any kind, we'd have to repeat one of the basis vectors, so we'd get something like
+
+$$\hat{x} \wedge \hat{y} \wedge \hat{x}$$
+
+However, no matter how we do this, we'd either end up with a pair of identical vectors being wedged
+together, which equals zero, or we could use the anticommutative property to swap the arguments 
+around so that they are together. The wedge product of anything with zero is zero, so a trivector
+can't exist in two dimensions.
+
+\begin{expl}
+    Try calculating how many bivectors (and other elements) there are in 4D, 5D, or even higher
+    dimensions. Do you notice a pattern?
+\end{expl}
+
+In general, \textit{simple k-vectors} (or \textit{k-blades}) are the result of a wedge product
+between $k$ different vectors. The value of $k$, also known as the \textit{grade} of the vector,
+can range between 0 (a scalar) to $D$, the dimension of the space. 1-vectors are just ordinary 
+vectors, 2-vectors are bivectors, and so on. (In dimensions higher than three, there are some
+$k$-vectors that are not simple, meaning they can only be expressed as a sum of simple $k$-vectors.
+Blades only refer to simple $k$-vectors.)
+
+\section{The geometric product}
+
+Considering the utility of vector products that provide senses of collinearity (the dot product),
+as well as area and rotation (the wedge product), it might make sense to combine the two into a 
+single product. This can be done, and is known as the \textit{geometric product} (or the 
+\textit{Clifford product}). There is no symbol for the geometric product: to indicate the geometric
+product of two vectors, they are simply written together: $\vec{a}\vec{b}$
+
+To calculate the geometric product between two vectors, the following formula can be used:
+
+$$\vec{a}\vec{b} = \vec{a} \cdot \vec{b} + \vec{a} \wedge \vec{b}$$
+
+Although this formula is commonly used to describe the geometric product, it does not hold in 
+general for $k$-vectors. However, we can use the properties of the geometric products of the basis
+vectors of the space. We know that for any orthonormal basis vectors of the space $\hat{u}$ and 
+$\hat{v}$,
+
+$$\hat{u} \cdot \hat{u} = 1$$
+$$\hat{u} \wedge \hat{u} = 0$$
+$$\hat{u} \wedge \hat{v} = -\hat{v} \wedge \hat{u}$$
+
+For components of any two $k$-vectors, we can construct a multiplication table that multiplies the
+scalar components as usual and uses the above rules to to multiply the vector components.
+
+One might question whether it is acceptable to add two quantities in this manner, especially when
+they seem to be incommensurate. As we proceed through geometric algebra and explore what it has to
+offer, we will see that this turns out to be a strength.
+
+\section{2D space}
+
+The geometric algebra of 2D space, $\mathbb{G}^2$, consists of 4 elements: a scalar, two vectors,
+and a bivector. There are two ways we can denote this set. The first is to use the notation
+$\hat{x}$ and $\hat{y}$: the sect of basis elements is therefore $\{1, \hat{x}, \hat{y}, 
+\hat{x}\hat{y}\}$. As we increase the number of dimensions, letter notation for basis vectors can
+become unwieldy, so another option is to use $e_{n}$ for the $n$th basis vector of the space. 
+This gives us a basis $\{1, e_1, e_2, e_{1}e_{2}\}$. For a low number of dimensions, sometimes
+$e_{1}e_{2}$ is written as $e_12$, but for very high dimensional spaces, this can become confusing.
+In this text, we'll stick to the former convention to reduce ambiguity.
+
+Remember when we mentioned earlier how adding seemingly incommensurate componenents can be a
+strength? As an example, let's square the basis bivector of 2D space, $e_{1}e_{2}$:
+
+\begin{eqnarray*}
+    \left(\hat{x}\hat{y}\right)^{2} &=& \left(\hat{x}\hat{y}\right)\left(\hat{x}\hat{y}\right) \\
+    &=& \hat{x}\left(\hat{y}\hat{x}\right)\hat{y} \\
+    &=& -\hat{x}\left(\hat{x}\hat{y}\right)\hat{y} \\
+    &=& -\left(\hat{x}\hat{x}\right)\left(\hat{y}\hat{y}\right) \\
+    &=& -\left(1\right)\left(1\right) \\
+    &=& -1
+\end{eqnarray*}
+
+This equation might seem familiar: $$i^{2} = -1$$ It turns out the basis bivector of 2D space 
+behaves exactly like the imaginary unit, $i$! Although the imaginary unit is often introduced as 
+the solution to the equation $x^2 = -1$, geometric algebra provides a new perspective on the
+nature of complex numbers that assists in understanding their physical interpretation.
+
+From here on, the unit bivector of 2D space will be referred to as $i$. With this knowledge in
+mind, let's look back at how we defined the magnitudes of the dot and wedge products:
+
+\begin{eqnarray*}
+    \vec{a} \cdot \vec{b} &=& \lvert\vec{a}\rvert \lvert\vec{b}\rvert \cos\theta \\
+    \vec{a} \wedge \vec{b} &=& \lvert\vec{a}\rvert \lvert\vec{b}\rvert \sin\theta
+\end{eqnarray*}
+
+Since we know the bivector component generated by the wedge product is an imaginary component, we 
+can rewrite the geometric product in new terms:
+
+\begin{eqnarray*}
+    \vec{a}\vec{b} &=& \lvert\vec{a}\rvert \lvert\vec{b}\rvert
+    \left(\cos\theta + i\sin\theta\right)\\
+    \vec{a}\vec{b} &=& \lvert\vec{a}\rvert \lvert\vec{b}\rvert e^{i\theta}
+\end{eqnarray*}
+
+The $e^{i\theta}$ portion of the equation is a unit complex number, and corresponds to the angle of
+rotation needed to transform a vector from $\vec{a}$ to $\vec{b}$. 
+
+\section{Rotations in 2D space}
+
+As another example, let's multiply a vector $\vec{c} = c_{x}\hat{x} + c_{y}\hat{y}$ by $i$:
+
+\begin{eqnarray*}
+    \vec{c}i &=& \left(c_{x}\hat{x} + c_{y}\hat{y}\right)\hat{x}\hat{y} \\
+    &=& c_{x}\left(\hat{x}\hat{x}\right)\hat{y} + c_{y}\hat{y}\hat{x}\hat{y} \\
+    &=& c_{x}\hat{y} + c_{y}\left(\hat{y}\hat{x}\right)\hat{y} \\
+    &=& c_{x}\hat{y} - c_{y}\left(\hat{x}\hat{y}\right)\hat{y} \\
+    &=& c_{x}\hat{y} - c_{y}\hat{x}\left(\hat{y}\hat{y}\right) \\
+    \vec{c}i &=& c_{x}\hat{y} - c_{y}\hat{x}
+\end{eqnarray*}
+
+The resulting vector is $\vec{c}$ rotated by 90 degrees counterclockwise, again strengthening the
+link between unit complex numbers and rotations. This should make sense, considering that 
+multiplying by $-1$ would rotate the vector by 180 degrees. Rephrasing the 2D geometric product of
+vectors in terms of $e^{i\theta}$ now gives us a way to rotate any vector by any angle we like.
+Remember that the geometric product is associative, but not commutative, so the order of 
+multiplication does matter. However, the way in which pairs of terms are evaluated does not - they
+may be regrouped arbitrarily.
+
+\begin{expl}
+    Try rotating a vector by multiplying by $i$ (or if you're feeling adventurous, $e^{i\theta})$
+    on either side. What is the effect of rearranging the multiplication?
+\end{expl}
+
+\section{3D space}
+
+The concepts that apply to 2D space extend naturally to 3D space. However, instead of having a
+scalar, two vectors, and a bivector as a basis, it contains one scalar, three vectors, three 
+bivectors, and a trivector, giving us 8 elements: $\{1, e_1, e_2, e_3, e_{1}e_{2}, e_{1}e_{3},
+e_{2}e_{3}, e_{1}e_{2}e_{3} = i\}$.
+
+There are some differences worth noting: the most significant is the use of $i$. In 3D, this
+represents the unit trivector, not a bivector. In general, for a space of any dimension, $i$ refers
+to the element with the highest grade (also known as a \textit{pseudoscalar}). Like in 2 
+dimensions, the fundamental relation $i^2 = -1$ is still obeyed, but unlike in 2 dimensions, it
+commutes with all elements of the geometric algebra.
+
+The addition of an extra dimension reveals the importance of a pseudoscalar in a geometric algebra.
+If we multiply any vector by $i$, we end up getting a bivector, and vice versa. This operation
+defines a \textit{duality} between vectors and bivectors in 3D. Similarly, there's a duality 
+between scalars and trivectors, though this might be so obvious that you've missed it. The number
+of elements in each grade hinted at this duality: the 3 basis vectors are dual to 3 basis
+bivectors, and the lone scalar corresponds to the lone trivector.
+
+This duality has a nice physical interpretation. If we break a surface in 3D into tiny plane
+segments, they all have normal vectors that are perpendicular to them. The pseudoscalar provides
+an easy way to calculate one from the other.
+
+\begin{expl}
+    How would you describe the cross product of 3 dimensions in terms of other vector operations
+    we've explored?
+\end{expl}
+
+\subsection{Rotations in 3D space}
+
+If you have any sort of background in computer programming, you may be familiar with the use of
+quaternions to represent rotations. it turns out that the quaternions are embedded within the 3D
+geometric algebra. In fact, for geometric algebras of every dimension, one can construct a set of
+multivectors that perform rotation operations: these are called \textit{rotors}.
+
+In 2 dimensions, the rotors are all unit complex numbers, consisting of the scalar and bivector
+elements of the space. In 3 dimensions, the same is also true: however, there are three basis 
+bivectors instead of one. Together, we have the elements $\{1, e_{12}, e_{23}, e_{13}\}$ that 
+naturally correspond to the basis elements of the quaternions, $\{1, i, j, k\}$.
+
+\begin{expl}
+    Show that the elements of the even subalgebra of the 3D geometric algebra obey the same 
+    relationships as those of the quaternions: $$i^2 = j^2 = k^2 = ijk = -1$$
+\end{expl}
+
+In any number of dimensions, rotors only consist of the even grade elements of the space. This
+subset of elements is called the \textit{even subalgebra}.
+
+You may already be aware that quaternions themselves are not commutative under multiplication, and
+this also holds for operations with rotors.
+
+\section{Generalizing to higher dimensions}
+
+Unlike the vector algebra formalism, geometric algebra naturally extends to spaces of arbitrary
+dimension naturally. Every geometric algebra of N total dimensions contains a basis of $2^N$
+elements. The number of elements of each grade follows Pascal's triangle.
+
+Some key properties of the algebra change as the dimension is increased.
+
+As mentioned earlier, the pseudoscalar $i$ is the highest grade element of the space. In spaces of
+even dimension, $i$ only commutes with multivectors that consist of even grade elements. In spaces
+of odd dimension, $i$ commutes with all elements.
+
+It is also important to note that the nice behavior of blades in 2 and 3 dimensions doesn't 
+generalize to higher dimensions. In 4 dimensions, it is possible to construct a bivector that
+cannot be described in terms of a product of two vectors: the most commonly given example is
+$e_{12} + e_{34}$. This is related to the fact that in 4 or more dimensions, it is possible to 
+rotate objects on multiple orthogonal planes at the same time with a double rotation operation.
+
+\section{Key operations with the geometric product}
+
+\subsection{Reverse}
+
+\subsection{Recovering the dot and wedge products}
+
+We can exploit the fact that the dot product is \textit{commutative} and the wedge product is
+\textit{anticommutative}. This means that when you reverse the order of the geometric product, the
+dot product portion remains unchanged, and the wedge product portion changes sign. This means that
+addding the geometric product to its reverse eliminates the anticommutative portion, and 
+subtracting it from its reverse eliminates the commutative portion.
+
+$$ a \cdot b = \frac{1}{2}\left(ab + ba\right)$$
+$$ a \wedge b = \frac{1}{2}\left(ab - ba\right)$$
+
+\subsection{Vector length, normalization, and inverse}
+
+Getting the length of a vector is easy: take the square root of the geometric product of the vector
+with itself:
+
+$$\left|\vec{r}\right| = \sqrt{\vec{r}^2}$$
+
+We can use this to \textit{normalize} a vector - in other words, keep the direction of the vector 
+the same, but ensure its magnitude is 1:
+
+$$\hat{r} = frac{\vec{r}}{\left|\vec{r}\right|} = frac{\vec{r}}{\sqrt{\vec{r}^2}}$$

@@ -1,0 +1,69 @@
+\chapter{Electromagnetism}
+
+Electromagnetism is arguably the dominant fundamental force in our daily lives.
+
+\section{Charges and the electric field}
+
+Every object in space has some electrical charge associated with it. This charge can be either
+positive or negative. Exactly what we assign "positive" or "negative" to is irrelevant.
+
+\subsection{Coulomb's law}
+
+Coulomb's law describes the force that two point charges $q_1$ and $q_2$ experience. The
+electromagnetic force drops off over distance, so we'll want to keep track of the displacement 
+vector $\vec{r}$ between them. From experimental observation, we find that the electromagnetic
+force decreases with the square of the distance. This motivates a form of the law which contains
+some term dependent on the inverse of $\vec{r}^2$:
+
+$$\left|F\right| \propto \frac{\left|q_1\right|\left|q_2\right|}{\hat{r}^2}$$
+
+We'll introduce a constant $k$, known as \textit{Coulomb's constant}, which allows us to convert
+units of charge squared over distance squared to a force. The value of Coulomb's constant is $k =
+8.9875517923(14) \times 10^9 \; \mathrm{ N \cdot m^2 \cdot C^{-2}}$.
+
+Now we have a law that tells us the magnitude of the force - but we want the force as a vector, not
+just a scalar. To do this, we'll need to think about how charges interact. The attracting case, 
+with opposite charges, gives us a hint: when the charges multiply to a negative number, the force
+points in the same direction as the displacement vector. That means that we should prefix the law
+with a negative sign to get the right behavior.
+
+Now we need to account for the direction that the force points. The force is constrained to lie 
+along the displacement vector between the charges. However, we've already accounted for the 
+inverse-square behavior of electric force, so we need to include a factor of the 
+\textit{normalized} vector along that direction: $\hat{r} = \frac{\vec{r}}{\sqrt{\vec{r}^2}}$.
+
+$$\hat{F} = -k\frac{q_1 q_2}{\vec{r}^2}\frac{\vec{r}}{\sqrt{\vec{r}^2}}
+ = -k\frac{q_1 q_2}{\vec{r}^2}\hat{r}$$
+
+\subsection{The electric field}
+
+\subsection{The electric potential}
+
+\subsection{Gauss's law}
+
+\section{Maxwell's equation}
+
+If you have studied electromagnetism before, you likely remember Maxwell's equations - at least by
+name. The conventional description of the equation is
+
+$$\nabla \cdot E = \frac{\rho}{\epsilon_0}$$
+$$\nabla \cdot B = 0$$
+$$\nabla \times E = -\frac{\partial B}{\partial t}$$
+$$\nabla \times B = \mu_0 J - \frac{1}{c^2} \frac{\partial E}{\partial t}$$
+
+We've recovered these laws through the 
+
+Now we can assemble \textit{Maxwell's equation}: $$\nabla F = J$$
+
+This single equation describes the entirety of the electromagnetic force
+
+\subsection{What about potentials?}
+
+
+
+\section{Making it relativistic}
+
+
+\section{Modifications to electromagnetism}
+
+\subsection{Higher dimensions}
