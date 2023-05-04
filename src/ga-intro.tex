@@ -303,11 +303,20 @@ Unlike the vector algebra formalism, geometric algebra naturally extends to spac
 dimension naturally. Every geometric algebra of N total dimensions contains a basis of $2^N$
 elements. The number of elements of each grade follows Pascal's triangle.
 
-Some key properties of the algebra change as the dimension is increased.
+Some key properties of the algebra change as the dimension is increased - most notably, those
+involving the pseudoscalar $i$. As mentioned earlier, $i$ is the highest grade element of the space.
+In spaces of even dimension, $i$ only commutes with multivectors that consist of even grade
+elements. In spaces of odd dimension, $i$ commutes with all elements.
 
-As mentioned earlier, the pseudoscalar $i$ is the highest grade element of the space. In spaces of
-even dimension, $i$ only commutes with multivectors that consist of even grade elements. In spaces
-of odd dimension, $i$ commutes with all elements.
+It is also not guaranteed that $i^2 = -1$. In four dimensions, computing the product
+$\left(e_1 e_2 e_3 e_4\right)\left(e_1 e_2 e_3 e_4\right)$ results in $i^2 = +1$! However, the
+pattern for the signs is predictable. For a Euclidean pseudoscalar $i_n$ where $n$ is the dimension
+of the space, the following formula provides the result of squaring the pseudoscalar: 
+$$
+i_n^2 = \left(-1\right)^{\lfloor frac{n}{2} \rfloor|}
+$$
+This creates a pattern of signs where $i_0^2 = i_1^2 = +1$, $i_2^2 = i_3^2 = -1$, $i_4^2 = i_5^2 =
++1$, etc. In our later discussion of non-Euclidean metrics, we'll have to alter this pattern.
 
 It is also important to note that the nice behavior of blades in 2 and 3 dimensions doesn't 
 generalize to higher dimensions. In 4 dimensions, it is possible to construct a bivector that
