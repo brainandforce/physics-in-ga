@@ -313,7 +313,7 @@ $\left(e_1 e_2 e_3 e_4\right)\left(e_1 e_2 e_3 e_4\right)$ results in $i^2 = +1$
 pattern for the signs is predictable. For a Euclidean pseudoscalar $i_n$ where $n$ is the dimension
 of the space, the following formula provides the result of squaring the pseudoscalar: 
 $$
-i_n^2 = \left(-1\right)^{\lfloor frac{n}{2} \rfloor|}
+i_n^2 = \left(-1\right)^{\lfloor \frac{n}{2} \rfloor}
 $$
 This creates a pattern of signs where $i_0^2 = i_1^2 = +1$, $i_2^2 = i_3^2 = -1$, $i_4^2 = i_5^2 =
 +1$, etc. In our later discussion of non-Euclidean metrics, we'll have to alter this pattern.
@@ -324,9 +324,70 @@ cannot be described in terms of a product of two vectors: the most commonly give
 $e_{12} + e_{34}$. This is related to the fact that in 4 or more dimensions, it is possible to 
 rotate objects on multiple orthogonal planes at the same time with a double rotation operation.
 
-\section{Key operations with the geometric product}
+\section{More operations on multivectors}
 
-\subsection{Reverse}
+Many operations relating multivectors outside of addition, the dot and wedge products, and the
+geometric product exist. Many of these can be constructed or defined in terms of the operations we
+already know, and in particular, the distributive properties of those products helps us apply them
+to arbitrary multivectors.
+
+\subsection{Grade projection}
+
+The grade projection operator, $\left<M\right>_k$, selects the elements of a multivector $M$ of
+grade $k$, where $k$ is an integer between zero and the dimension of the space.
+
+\subsection{Conjugate operations}
+
+There are many operations analogous to the conjugation of complex numbers which can be applied to
+multivectors. However, there is no unique conjugate operation: here, we'll discuss three of the most
+commonly used operations that fall under this umbrella. All of these operations are
+\textit{involutions}: applying them twice results in the original multivector.
+
+\subsubsection{Reverse}
+
+For an multivector $M$ which is the product of two or more basis blades, $e_a$ and $e_b$, the
+\textit{reverse} is an operation that reverses the order of multiplication whch generated $M$.
+
+There are several different conventions for how the reverse is denoted. Commonly, the tilde is used,
+so $\tilde{M} = e_b e_a$. However, some dislike this convention, as writing a tilde on top of
+several multivectors looks funny: for instance, $\tilde{M} = \widetilde{e_a e_b}$. For this reason,
+the dagger is sometimes used: $M^\dagger = \left(e_a e_b\right)^\dagger$. However, this symbol may
+not be preferred in the context of programming. An alternative with the tilde is to use it as a
+postfix: $\tilde{M} = \left(e_a e_b\right)^\sim$.
+
+Throughout this text, we will use the tilde convention, with the reverse of a single multivector
+denoted as $\tilde{M}$, and the reverse of grouped multivectors denoted as $\left(abc\right)^\sim$.
+
+For all $k$-vectors, this is an operation that changes the sign associated with the basis blades,
+and it only depends on the grade $k$:
+$$
+\left<M\right>_k^\sim = \left(-1\right)^{\lfloor \frac{n}{2} \rfloor} \left<M\right>_k
+$$
+Note the similarity of form in the exponential portion of this formula and that of squaring the
+pseudoscalar. 
+
+If we want to extend this to any arbitrary multivector, we can sum up the results of applying grade
+involution individually to each grade $k$ from 0 to the dimension of the space, $D$:
+$$
+\tilde{M} = \sum_{k = 0}^{D} \left(-1\right)^{\lfloor \frac{n}{2} \rfloor} \left<M\right>_k
+$$
+
+\subsubsection{Grade involution}
+
+\textit{Grade involution} resembles reversion, but with a different sign convention. A sum formula
+can be explicitly given:
+$$
+ \sum_{k = 0}^{D} \left(-1\right)^{n} \left<M\right>_k
+$$
+
+Unfortunately, grade involution suffers from the same notation issues as the reverse. One commonly
+used notation is $\hat{M}$, which suffers from the same issue with placement over multiple arguments
+as well as potential confusion with the basis vectors of space. The alternative notation $M^*$ is
+one that may be shared with the dual, which we will define later.
+
+Our convention for the basis vectors of space will not involve hat notation, but instead the $e_n$
+notation we have already introduced, so we will use the hat notation $\hat{M}$ for the grade
+involution
 
 \subsection{Recovering the dot and wedge products}
 
